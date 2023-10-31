@@ -76,8 +76,8 @@ export default function Home() {
                     <label htmlFor="hs-search-article-1" className="block text-sm text-gray-700 font-medium dark:text-white"><span className="sr-only">Search article</span></label>
                     <input type="email" name="hs-search-article-1" id="hs-search-article-1" className="p-3 block w-full border-transparent rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 bg-gray-400 text-gray-700 dark:text-gray-400" placeholder="Masukkan link disini"/>
                   </div>
-                  <div className="flex-[0_0_auto]">
-                    <Link className="p-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" href="#">
+                  <div className="text-sm md:text-base flex items-center">
+                    <Link className="p-2 sm:p-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" href="#">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
                       </svg>
@@ -115,14 +115,14 @@ export default function Home() {
         </div>
       </div>
 
-      <div class="my-10 sm:my-18 sm:mb-20">
+      <div class="my-10 sm:my-18 sm:mb-20 px-4 sm:px-0">
           <h3 class="text-blue-500 text-lg sm:text-3xl font-bold text-center">Visits, Penyingkat tautan terbaik dan gratis!</h3>
           <p class="text-base sm:text-xl mx-auto text-gray-700 dark:text-gray-400 max-w-3xl">
               Persingkat tautan anda dengan <strong class="text-blue-500">Visits</strong>. Nikmati kemudahan dan fleksibilitas dalam mengakses tautan singkat secara gratis, kapan saja dan di mana saja. Anda dapat mempersingkat tautan dari Instagram, Facebook, YouTube, Twitter, Linked In, WhatsApp, TikTok, blog dan situs. Cukup tempelkan URL yang panjang dan klik tombol Persingkat URL. Di halaman berikutnya, salin URL yang dipersingkat dan gunakan sesuai kebutuhan. Setelah memperpendek URL, periksa berapa banyak klik yang diterimanya.
           </p>
       </div>
 
-      <div className=" max-w-3xl grid grid-cols-3 gap-4 mx-auto">
+      <div className=" max-w-3xl grid sm:grid-cols-3 grid-cols-1 gap-4 mx-auto">
         {
           cardsData.map((card, index) =>
           <Card key={index} title={card.title} description={card.description} icon={card.icon}/>
