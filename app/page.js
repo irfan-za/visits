@@ -1,9 +1,8 @@
-"use client"
 import Link from "next/link";
-import { ThemeProvider } from "next-themes"
-import DarkModeTogleButton from "./components/navbar/DarkModeTogleButton";
 import Footer from "./components/Footer";
 import Card from "./components/Card";
+import supabase from "./api/supabase";
+import { generateRandomText } from "@/utils/generateRandomString";
 
 const cardsData=[
   {
@@ -55,9 +54,20 @@ const cardsData=[
   },
 ]
 export default function Home() {
+  
+  const shortHandler=async (e)=>{
+    'use server'
+    const newUrl=generateRandomText();
+    console.log(e);
+    // const { data, error } = await supabase
+    // .from('urls')
+    // .insert([
+    //   { short_url: newUrl, long_url:  },
+    // ])
+    // .select()
+  }
   return (
-    <ThemeProvider enableSystem={true} attribute="class">
-      <DarkModeTogleButton/>
+    <>
       <div className="relative overflow-hidden">
         <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-24">
           <div className="text-center">
@@ -70,20 +80,20 @@ export default function Home() {
             </p>
 
             <div className="mt-7 sm:mt-12 mx-auto max-w-xl relative">
-              <form>
+              <form onSubmit={shortHandler}>
                 <div className="relative z-10 flex space-x-3 p-3 bg-gray-400 border rounded-lg shadow-lg shadow-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:shadow-gray-900/[.2]">
                   <div className="flex-[100%]">
-                    <label htmlFor="hs-search-article-1" className="block text-sm text-gray-700 font-medium dark:text-white"><span className="sr-only">Search article</span></label>
-                    <input type="email" name="hs-search-article-1" id="hs-search-article-1" className="p-3 block w-full border-transparent rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 bg-gray-400 text-gray-700 dark:text-gray-400" placeholder="Masukkan link disini"/>
+                    <label htmlFor="long_url" className="block text-sm text-gray-700 font-medium dark:text-white"><span className="sr-only">Search article</span></label>
+                    <input type="text" name="long_url" id="long_url" className="p-3 block w-full border-transparent rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 bg-gray-400 text-gray-700 dark:text-gray-400" placeholder="Masukkan link disini"/>
                   </div>
-                  <div className="text-sm md:text-base flex items-center">
+                  <button type="submit" className="text-sm md:text-base flex items-center">
                     <Link className="p-2 sm:p-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" href="#">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
                       </svg>
                       <p>Singkatkan</p>
                     </Link>
-                  </div>
+                  </button>
                 </div>
               </form>
 
@@ -115,10 +125,10 @@ export default function Home() {
         </div>
       </div>
 
-      <div class="my-10 sm:my-18 sm:mb-20 px-4 sm:px-0">
-          <h3 class="text-blue-500 text-lg sm:text-3xl font-bold text-center">Visits, Penyingkat tautan terbaik dan gratis!</h3>
-          <p class="text-base sm:text-xl mx-auto text-gray-700 dark:text-gray-400 max-w-3xl">
-              Persingkat tautan anda dengan <strong class="text-blue-500">Visits</strong>. Nikmati kemudahan dan fleksibilitas dalam mengakses tautan singkat secara gratis, kapan saja dan di mana saja. Anda dapat mempersingkat tautan dari Instagram, Facebook, YouTube, Twitter, Linked In, WhatsApp, TikTok, blog dan situs. Cukup tempelkan URL yang panjang dan klik tombol Persingkat URL. Di halaman berikutnya, salin URL yang dipersingkat dan gunakan sesuai kebutuhan. Setelah memperpendek URL, periksa berapa banyak klik yang diterimanya.
+      <div className="my-10 sm:my-18 sm:mb-20 px-4 sm:px-0">
+          <h3 className="text-blue-500 text-lg sm:text-3xl font-bold text-center">Visits, Penyingkat tautan terbaik dan gratis!</h3>
+          <p className="text-base sm:text-xl mx-auto text-gray-700 dark:text-gray-400 max-w-3xl">
+              Persingkat tautan anda dengan <strong className="text-blue-500">Visits</strong>. Nikmati kemudahan dan fleksibilitas dalam mengakses tautan singkat secara gratis, kapan saja dan di mana saja. Anda dapat mempersingkat tautan dari Instagram, Facebook, YouTube, Twitter, Linked In, WhatsApp, TikTok, blog dan situs. Cukup tempelkan URL yang panjang dan klik tombol Persingkat URL. Di halaman berikutnya, salin URL yang dipersingkat dan gunakan sesuai kebutuhan. Setelah memperpendek URL, periksa berapa banyak klik yang diterimanya.
           </p>
       </div>
 
@@ -130,7 +140,6 @@ export default function Home() {
         }
       </div>
       <Footer/>
-      
-    </ThemeProvider>
+      </>
   )
 }
