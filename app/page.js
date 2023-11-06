@@ -1,8 +1,10 @@
+'use client'
 import Link from "next/link";
 import Footer from "./components/Footer";
 import Card from "./components/Card";
-import supabase from "./api/supabase";
+import { useState } from "react";
 import { generateRandomText } from "@/utils/generateRandomString";
+import supabase from "./api/supabase";
 
 const cardsData=[
   {
@@ -54,18 +56,26 @@ const cardsData=[
   },
 ]
 export default function Home() {
+  const [longUrl, setLongUrl] = useState('');
+  const [shortUrl, setShortUrl] = useState(null);
   
   const shortHandler=async (e)=>{
-    'use server'
+    e.preventDefault();  
     const newUrl=generateRandomText();
-    console.log(e);
-    // const { data, error } = await supabase
-    // .from('urls')
-    // .insert([
-    //   { short_url: newUrl, long_url:  },
-    // ])
-    // .select()
+    const { data, error } = await supabase
+    .from('urls')
+    .insert([
+      { short_url: newUrl, long_url: longUrl },
+    ])
+    .select().single()
+    if (data) {
+      setShortUrl(data.short_url)
+      console.log(data);
+    } else {
+      console.log(error);
+    }
   }
+  const copyUrl=()=>navigator.clipboard.writeText(`https://visits.id/${shortUrl}`)
   return (
     <>
       <div className="relative overflow-hidden">
@@ -80,13 +90,13 @@ export default function Home() {
             </p>
 
             <div className="mt-7 sm:mt-12 mx-auto max-w-xl relative">
-              <form onSubmit={shortHandler}>
+              <form >
                 <div className="relative z-10 flex space-x-3 p-3 bg-gray-400 border rounded-lg shadow-lg shadow-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:shadow-gray-900/[.2]">
                   <div className="flex-[100%]">
                     <label htmlFor="long_url" className="block text-sm text-gray-700 font-medium dark:text-white"><span className="sr-only">Search article</span></label>
-                    <input type="text" name="long_url" id="long_url" className="p-3 block w-full border-transparent rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 bg-gray-400 text-gray-700 dark:text-gray-400" placeholder="Masukkan link disini"/>
+                    <input type="text" onChange={(e)=>setLongUrl(e.target.value)} name="long_url" id="long_url" className="p-3 block w-full border-transparent rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 bg-gray-400 text-gray-700 dark:text-gray-400" placeholder="Masukkan link disini"/>
                   </div>
-                  <button type="submit" className="text-sm md:text-base flex items-center">
+                  <button type="submit" onClick={shortHandler} className="text-sm md:text-base flex items-center">
                     <Link className="p-2 sm:p-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" href="#">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
@@ -112,15 +122,18 @@ export default function Home() {
               </div>
             </div>
 
+            {
+              shortUrl &&
             <div className="mt-8 flex justify-center space-x-3">
               <p className="font-semibold text-gray-700 dark:text-gray-400 sm:text-lg">
-                Url singkat : <Link className="text-cyan-500 underline" href={'https://google.com'}>http://visits.id/joji1</Link>
+                Url singkat : <button className="text-cyan-500 underline" onClick={copyUrl} >http://visits.id/{shortUrl}</button>
               </p>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 hover:text-cyan-500 hover:cursor-pointer">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
-                </svg>
-
+              <svg onClick={copyUrl} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 hover:text-cyan-500 hover:cursor-pointer">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
+              </svg>
             </div>
+            }
+
           </div>
         </div>
       </div>
