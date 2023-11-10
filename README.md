@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Visits.id - Documentation
 
-## Getting Started
+## Description
+Visits.id is a URL shortening service that allows users to create short links that are easy to remember and use.
 
-First, run the development server:
+## Key Features
+1. **URL Shortening**: The service allows users to create shorter and more user-friendly URLs compared to the original long URLs.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Visit Statistics**: Each created link will have visit statistics, including the total number of visits and related information.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Link Management**: Users can view, edit, and delete the links they have created through the management interface.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 1. Creating Short Links
+- Users can create short links by entering the original long URL into the link creation form.
+- The generated short link can be copied and shared.
 
-## Learn More
+### 2. Visit Statistics
+- Each created link has a visit statistics page that can be accessed by the link owner.
+- Statistics include the total number of visits, creation date, and other relevant information.
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Link Management
+- Registered users can manage their links through the management interface.
+- Users can view a list of links, edit link information, and delete unnecessary links.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Installation and Configuration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. **Install Dependencies**
+   ```bash
+   yarn
+   ```
+2. **Setting ENV**
+   ```bash
+    NEXT_PUBLIC_SUPABASE_URL=Your supabase url
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=Your public supabase key
+   ```
+3. **Run Project**
+   ```bash
+   yarn dev
+   ```
