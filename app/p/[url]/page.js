@@ -1,7 +1,7 @@
 "use client"
 import { useRouter, usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import supabase from '../api/supabase'
+import supabase from '../../api/supabase'
 
 export default function Url() {
   const router= useRouter()
