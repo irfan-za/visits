@@ -58,21 +58,39 @@ const cardsData=[
 export default function Home() {
   const [longUrl, setLongUrl] = useState('');
   const [shortUrl, setShortUrl] = useState(null);
+  const [validUrl, setValidUrl] = useState(false);
+
+  function checkUrl(url) {
+    const urlRegex = /^[^ "]+\.[a-zA-Z]{2,}(:[0-9]+)?([/?].*)?$/;
+    
+    if (urlRegex.test(url)) {
+      const urlRegex = /^(ftp|http|https):\/\/[^ "]+\.[a-zA-Z]{2,}(:[0-9]+)?([/?].*)?$/;
+      urlRegex.test() ? setLongUrl(url) : setLongUrl("http://" + url);
+      setValidUrl(true);
+    } else {
+      setValidUrl(false);
+    }
+  }
   
   const shortHandler=async (e)=>{
     e.preventDefault();  
-    const newUrl=generateRandomText();
-    const { data, error } = await supabase
-    .from('urls')
-    .insert([
-      { short_url: newUrl, long_url: longUrl },
-    ])
-    .select().single()
-    if (data) {
-      setShortUrl(data.short_url)
-      console.log(data);
-    } else {
-      console.log(error);
+    if(validUrl){
+      const newUrl=generateRandomText();
+      const { data, error } = await supabase
+      .from('urls')
+      .insert([
+        { short_url: newUrl, long_url: longUrl },
+      ])
+      .select().single()
+      if (data) {
+        setShortUrl(data.short_url)
+        console.log(data);
+      } else {
+        console.log(error);
+      }
+    }
+    else{
+      alert("Url Link Tidak Valid!")
     }
   }
   const copyUrl=()=>navigator.clipboard.writeText(`https://visits.id/p/${shortUrl}`)
@@ -94,7 +112,7 @@ export default function Home() {
                 <div className="relative z-10 flex space-x-3 p-3 bg-gray-400 border rounded-lg shadow-lg shadow-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:shadow-gray-900/[.2]">
                   <div className="flex-[100%]">
                     <label htmlFor="long_url" className="block text-sm text-gray-700 font-medium dark:text-white"><span className="sr-only">Search article</span></label>
-                    <input type="text" onChange={(e)=>setLongUrl(e.target.value)} name="long_url" id="long_url" className="p-3 block w-full border-transparent rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 bg-gray-400 text-gray-700 dark:text-gray-400" placeholder="Masukkan link disini"/>
+                    <input type="text" onChange={(e)=>checkUrl(e.target.value)} name="long_url" id="long_url" className="p-3 block w-full border-transparent rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 bg-gray-400 text-gray-700 dark:text-gray-400" placeholder="Masukkan link disini"/>
                   </div>
                   <button type="submit" onClick={shortHandler} className="text-sm md:text-base flex items-center">
                     <Link className="p-2 sm:p-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" href="#">
