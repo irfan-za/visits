@@ -61,14 +61,19 @@ export default function Home() {
   const [validUrl, setValidUrl] = useState(false);
 
   function checkUrl(url) {
-    const urlRegex = /^[^ "]+\.[a-zA-Z]{2,}(:[0-9]+)?([/?].*)?$/;
+    const urlRegex = /^(ftp|http|https):\/\/[^ "]+\.[a-zA-Z]{2,}(:[0-9]+)?([/?].*)?$/;
     
     if (urlRegex.test(url)) {
-      const urlRegex = /^(ftp|http|https):\/\/[^ "]+\.[a-zA-Z]{2,}(:[0-9]+)?([/?].*)?$/;
-      urlRegex.test() ? setLongUrl(url) : setLongUrl("http://" + url);
+      setLongUrl(url);
       setValidUrl(true);
     } else {
-      setValidUrl(false);
+      const urlRegex = /^[^ "]+\.[a-zA-Z]{2,}(:[0-9]+)?([/?].*)?$/;
+      if(urlRegex.test()){
+        setLongUrl("http://" + url);
+        setValidUrl(true);
+      } else {
+        setValidUrl(false);
+      }
     }
   }
   
