@@ -68,7 +68,7 @@ export default function Home() {
       setValidUrl(true);
     } else {
       const urlRegex = /^[^ "]+\.[a-zA-Z]{2,}(:[0-9]+)?([/?].*)?$/;
-      if(urlRegex.test()){
+      if(urlRegex.test(url)){
         setLongUrl("http://" + url);
         setValidUrl(true);
       } else {
