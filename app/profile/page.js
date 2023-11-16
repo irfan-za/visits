@@ -1,8 +1,13 @@
-import React from 'react'
+import Navbar from '../components/Navbar'
+import Table from '../components/Table'
 
 function Profile() {
+
   return (
-    <div>Profile</div>
+      <div>
+        <Navbar/>
+        <Table/>
+      </div>
   )
 }
 
