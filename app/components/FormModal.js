@@ -1,31 +1,83 @@
-import { Fragment, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import supabase from '../api/supabase'
 import Link from 'next/link'
+import { checkUrl } from '@/utils/checkValidUrl'
+import { generateRandomText } from '@/utils/generateRandomString'
 
-export default function FormModal({open,setOpen, title, currentEditData}) {
+export default function FormModal({open, setOpen, title, currentUserId, currentEditData, setCurrentEditData, shortUrl, setShortUrl, longUrl, setLongUrl}) {
   const [longUrlError, setLongUrlError] = useState(false)
+  const [validUrl, setValidUrl] = useState(false);
   const cancelButtonRef = useRef(null)
-  const submitForm= async()=>{
-    e.preventDefault()
-    console.log(e.target.short_url);
-    console.log(e.target.long_url);
-    if(currentEditData){
 
+
+  useEffect(() => {
+    console.log(longUrl);
+
+    return async() => {
+      if(currentEditData){
+        const { data: url, error } = await supabase
+          .from('urls')
+          .select()
+          .eq('id', currentEditData)
+          .single()
+          if(!error){
+            setLongUrl(url.long_url);
+            setShortUrl(url.short_url);
+          }
+      }
+    }
+  }, [currentEditData])
+  
+  const submitForm= async(e)=>{
+    e.preventDefault()
+    checkUrl(longUrl, setValidUrl, setLongUrl)
+
+    if(currentEditData){
+      editUrl(currentEditData)
+      setOpen(false)
     }else{
-      editUrl()
+      createUrl();
+      setOpen(false)
     }
   }
   const editUrl=async()=>{
-  //   const { data, error } = await supabase
-  //   .from('urls')
-  //   .update({ 
-  //     short_url: 'shorturl',
-  //     long_url: 'longurl',
-  //  })
-  //   .eq('id', currentEditData)
-  //   .select()
+    const { error } = await supabase
+    .from('urls')
+    .update({ 
+          short_url: shortUrl,
+          long_url: longUrl,
+          supabase_auth_id : currentUserId
+       })
+    .eq('id', currentEditData)
+    if(error){
+      alert(error.message)
+    }
   }
+  const createUrl= async()=>{
+    let data= { 
+      short_url: generateRandomText(),
+      long_url: longUrl,
+      supabase_auth_id : currentUserId
+    }
+    if(shortUrl){
+      data={ 
+        short_url: shortUrl, 
+        long_url: longUrl,
+        supabase_auth_id : currentUserId
+      }
+   }  
+   console.log(data);
+    const { error } = await supabase
+    .from('urls')
+    .insert(data)
+     if(error){
+      alert(error.message);
+    }
+  }
+
+  // clear form
+  if(!open){setShortUrl(''); setLongUrl(''); setCurrentEditData(null);}
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -61,10 +113,10 @@ export default function FormModal({open,setOpen, title, currentEditData}) {
                   <form onSubmit={submitForm}>
                     <div className="grid gap-y-4">
                       <div>
-                        <label for="longUrl" className="block text-sm mb-2 dark:text-white">Url Panjang</label>
+                        <label htmlFor="longUrl" className="block text-sm mb-2 dark:text-white font-semibold">Url Panjang</label>
                         <div className="relative">
-                          <input type="text" id="longUrl" name="longUrl" className="py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600" required aria-describedby="longUrl-error"
-                            placeholder='https://example.com/123/abc'/>
+                          <input type="text" id="longUrl" name="longUrl" value={longUrl} onChange={(e)=>setLongUrl(e.target.value)} className="py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600" required aria-describedby="longUrl-error"
+                            placeholder='https://website.com/123'/>
                           {
                             longUrlError &&
                             <div className="absolute inset-y-0 end-0 flex items-center pointer-events-none pe-3">
@@ -80,10 +132,13 @@ export default function FormModal({open,setOpen, title, currentEditData}) {
                         }
                       </div>
                       <div>
-                        <label for="customUrl" className="block text-sm mb-2 dark:text-white">Url Kustom</label>
-                        <input type="text" id="customUrl" name="customUrl" 
-                          placeholder='visits.id/p/hello'
-                          className="py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600" aria-describedby="customUrl-error"/>
+                        <label htmlFor="customUrl" className="block text-sm mb-2 dark:text-white font-semibold">Url Kustom</label>
+                        <div className='flex items-center'>
+                          <span className='font-medium text-lg'>https://visits.id/p/</span>
+                          <input type="text" id="customUrl" name="customUrl" value={shortUrl} onChange={(e)=>setShortUrl(e.target.value)}
+                            placeholder='custom-url'
+                            className="py-3 px-3 block w-full border border-gray-400 rounded-lg text-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600" aria-describedby="customUrl-error"/>
+                        </div>
                       </div>
                       
                       <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
@@ -96,7 +151,7 @@ export default function FormModal({open,setOpen, title, currentEditData}) {
                         <button
                           type="button"
                           className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                          onClick={() => {setOpen(false); signout()}}
+                          onClick={() => {setOpen(false);}}
                           ref={cancelButtonRef}
                         >
                           Batal

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { generateRandomText } from "@/utils/generateRandomString";
 import supabase from "./api/supabase";
 import { ThemeProvider } from "next-themes";
+import {checkUrl} from "@/utils/checkValidUrl";
 
 const cardsData=[
   {
@@ -61,29 +62,30 @@ export default function Home() {
   const [shortUrl, setShortUrl] = useState(null);
   const [validUrl, setValidUrl] = useState(false);
 
-  function checkUrl(url) {
-    const urlRegex = /^(ftp|http|https):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
 
-    
-    if (urlRegex.test(url)) {
-      setLongUrl(url);
-      setValidUrl(true);
-    } else {
-      if(!url.contains('http')){
-        setLongUrl("http://" + url);
-        setValidUrl(true);
-      }
-    } 
-  }
   
   const shortHandler=async (e)=>{
     e.preventDefault();  
+    const { data: { user } } = await supabase.auth.getUser()
     if(validUrl){
       const newUrl=generateRandomText();
+      let postData={}
+      if(user){
+        postData={ 
+          short_url: newUrl, 
+          long_url: longUrl, 
+          supabase_auth_id: user.id 
+        }
+      } else{
+        postData={ 
+          short_url: newUrl, 
+          long_url: longUrl, 
+        }
+      }
       const { data, error } = await supabase
       .from('urls')
       .insert([
-        { short_url: newUrl, long_url: longUrl },
+        postData
       ])
       .select().single()
       if (data) {
@@ -94,7 +96,7 @@ export default function Home() {
       }
     }
     else{
-      alert("Url Link Tidak Valid!")
+      alert("Link URL Tidak Valid!")
     }
   }
   const copyUrl=()=>navigator.clipboard.writeText(`https://visits.id/p/${shortUrl}`)
@@ -116,7 +118,7 @@ export default function Home() {
                 <div className="relative z-10 flex space-x-3 p-3 bg-gray-400 border rounded-lg shadow-lg shadow-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:shadow-gray-900/[.2]">
                   <div className="flex-[100%]">
                     <label htmlFor="long_url" className="block text-sm text-gray-700 font-medium dark:text-white"><span className="sr-only">Search article</span></label>
-                    <input type="text" onChange={(e)=>checkUrl(e.target.value)} name="long_url" id="long_url" className="p-3 block w-full border-transparent rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 bg-gray-400 text-gray-700 dark:text-gray-400" placeholder="Masukkan link disini"/>
+                    <input type="text" onChange={(e)=>checkUrl(e.target.value, setValidUrl, setLongUrl)} name="long_url" id="long_url" className="p-3 block w-full border-transparent rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 bg-gray-400 text-gray-700 dark:text-gray-400" placeholder="Masukkan link disini"/>
                   </div>
                   <button type="submit" onClick={shortHandler} className="text-sm md:text-base flex items-center">
                     <Link className="p-2 sm:p-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" href="#">
