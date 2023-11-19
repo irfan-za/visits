@@ -19,8 +19,9 @@ async function authMiddleware(req, supabaseMiddleware) {
   const pathname= req.nextUrl.pathname
   
   const { data: { user } } = await supabaseMiddleware.auth.getUser()
+  console.log('🔥',  req.url);
   if(pathname=== '/profile' && !user){
-    console.log('🔥', user);
+    console.log("Middeware AUTH🔥");
     return NextResponse.redirect(new URL('/', req.url))
   }
   else if(pathname.startsWith('/auth') && user){
@@ -34,6 +35,8 @@ async function authMiddleware(req, supabaseMiddleware) {
 export async function middleware(req){
   const res = NextResponse.next();
   const supabaseMiddleware = createMiddlewareClient({ req, res });
+  // console.log("Middeware REDIRECT🔥");
+
 
   await redirectMiddleware(req, supabaseMiddleware);
   await authMiddleware(req, supabaseMiddleware);
