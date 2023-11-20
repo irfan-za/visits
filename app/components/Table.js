@@ -1,34 +1,70 @@
 'use client'
-import React, { Fragment, useEffect, useState } from 'react'
-import FormModal from './FormModal'
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
+import FormModal from './modal/FormModal'
 import { Menu, Transition } from '@headlessui/react'
 import supabase from '../api/supabase'
+import DeleteModal from './modal/DeleteModal'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 function Table() {
   const [open, setOpen] = useState(false)
+  const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [title, setTitle] = useState("")
   const [data, setData] = useState(null)
   const [currentEditData, setCurrentEditData] = useState(null)
+  const [currentDeleteData, setCurrentDeleteData] = useState(null)
   const [currentUserId, setCurrentUserId] = useState('');
   const [longUrl, setLongUrl] = useState('');
   const [shortUrl, setShortUrl] = useState('');
+  const [search, setSearch] = useState('');
 
+  const router= useRouter()
+  const searchParams = useSearchParams()
+  const pathName = usePathname()
 
   useEffect(() => {
     const f= async () => {
       const { data: { user } } = await supabase.auth.getUser()
       if(user){
-        const { data: urls, error } = await supabase
-        .from('urls')
-        .select()
-        .eq('supabase_auth_id', user.id)
-        !error ? setData(urls) : alert(error.message)
-        setCurrentUserId(user.id)
+        if(search !== ''){
+          // filterWithoutFetch
+          fetchWithFilter(user,search)
+        }
+        else{
+          if(router){
+            const search=searchParams.get("search")
+            fetchWithFilter(user,search)
+          }
+          else{
+            const { data: urls, error } = await supabase
+            .from('urls')
+            .select()
+            .eq('supabase_auth_id', user.id)
+            !error ? setData(urls) : alert(error.message)
+            setCurrentUserId(user.id)
+          }
+        }
       }
     }
     f()
-  },[])
+  },[router,search])
 
+  const doSearch =async (e)=>{
+    setSearch(e.target.value)
+    router.push(`${pathName}?search=${e.target.value}`)
+  }
+
+  const fetchWithFilter = async (user, search)=>{
+    const { data: urls, error } = await supabase
+    .from('urls')
+    .select()
+    .or(`short_url.ilike.%${search}%,long_url.ilike.%${search}%`)
+    !error ? setData(urls) : alert(error.message)
+    setCurrentUserId(user.id)
+  }
+  // const filterWithoutFetch =()=>{
+  //   const newData=data.filter(d=>d.short_url.includes(search) || d.long_url.includes(search))
+  // }
 
   return (
 <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
@@ -50,7 +86,7 @@ function Table() {
                   <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
                     <svg className="flex-shrink-0 h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                   </div>
-                  <input type="text" id="icon" name="icon" className="py-2 px-4 ps-11 pe-20 block w-92 md:w-96 bg-transparent border border-gray-700 shadow-sm rounded-lg text-sm text-gray-700 focus:border-gray-900 focus:ring-gray-600 placeholder:text-gray-500" placeholder="Cari"/>      
+                  <input type="text" id="icon" name="icon" onChange={(e)=>doSearch(e)} className="py-2 px-4 ps-11 pe-20 block w-92 md:w-96 bg-transparent border border-gray-700 shadow-sm rounded-lg text-sm text-gray-700 focus:border-gray-900 focus:ring-gray-600 placeholder:text-gray-500" placeholder="Cari"/>      
                 </div>
               </div>
               
@@ -134,7 +170,9 @@ function Table() {
                           </Menu.Item>
                           <Menu.Item>
                           {({ active }) => (
-                            <button className={`${active && 'bg-red-200'} flex items-center justify-center w-full py-2 px-3 rounded-lg text-sm text-gray-800  focus:ring-2 focus:ring-red-500 dark:text-gray-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600`}>
+                            <button 
+                              onClick={()=>{setOpenDeleteModal(true); setCurrentDeleteData(row.id);}}
+                              className={`${active && 'bg-red-200'} flex items-center justify-center w-full py-2 px-3 rounded-lg text-sm text-gray-800  focus:ring-2 focus:ring-red-500 dark:text-gray-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600`}>
                               Hapus
                             </button>
                             )}
@@ -158,7 +196,7 @@ function Table() {
           <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-gray-700">
             <div>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                <span className="font-semibold text-gray-800 dark:text-gray-200">6</span> results
+                <span className="font-semibold text-gray-800 dark:text-gray-200">{data?.length}</span> results
               </p>
             </div>
 
@@ -183,6 +221,7 @@ function Table() {
   </div>
   {/* <!-- End Card --> */}
   <FormModal open={open} setOpen={setOpen} title={title} currentEditData={currentEditData} currentUserId={currentUserId} setCurrentEditData={setCurrentEditData} shortUrl={shortUrl} setShortUrl={setShortUrl} longUrl={longUrl} setLongUrl={setLongUrl} />
+  <DeleteModal openDeleteModal={openDeleteModal} setOpenDeleteModal={setOpenDeleteModal} currentDeleteData={currentDeleteData} />
 </div>
   )
 }

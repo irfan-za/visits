@@ -1,21 +1,20 @@
 import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import supabase from '../api/supabase'
+import supabase from '../../api/supabase'
 
-export default function LogoutModal({open,setOpen}) {
-  const signout = async() =>{
-    await fetch('/api/auth/signout',{
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+export default function DeleteModal({openDeleteModal,setOpenDeleteModal, currentDeleteData}) {
+  const deleteData= async() =>{
+    const { error } = await supabase
+    .from('urls')
+    .delete()
+    .eq('id', currentDeleteData)
+    if(error) {alert(error.message)}
   }
   const cancelButtonRef = useRef(null)
 
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
+    <Transition.Root show={openDeleteModal} as={Fragment}>
+      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpenDeleteModal}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -50,11 +49,11 @@ export default function LogoutModal({open,setOpen}) {
                     </div>
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                       <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                        Logout akun
+                        Hapus Url
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                          Apakah kamu yakin ingin keluar?
+                          Apakah kamu yakin ingin menghapus url?
                         </p>
                       </div>
                     </div>
@@ -64,14 +63,14 @@ export default function LogoutModal({open,setOpen}) {
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                    onClick={() => {setOpen(false); signout()}}
+                    onClick={() => {setOpenDeleteModal(false); deleteData()}}
                   >
-                    Keluar
+                    Hapus
                   </button>
                   <button
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                    onClick={() => setOpen(false)}
+                    onClick={() => setOpenDeleteModal(false)}
                     ref={cancelButtonRef}
                   >
                     Batal

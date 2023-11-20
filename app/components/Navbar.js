@@ -2,7 +2,7 @@
 import { useTheme } from 'next-themes';
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import LogoutModal from './LogoutModal';
+import LogoutModal from './modal/LogoutModal';
 import supabase from '../api/supabase';
 
 function Navbar() {
