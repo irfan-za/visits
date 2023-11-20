@@ -1,9 +1,9 @@
 'use client'
 import React, { Fragment, useCallback, useEffect, useState } from 'react'
-import FormModal from './modal/FormModal'
+import FormModal from '../modal/FormModal'
 import { Menu, Transition } from '@headlessui/react'
-import supabase from '../api/supabase'
-import DeleteModal from './modal/DeleteModal'
+import supabase from '../../api/supabase'
+import DeleteModal from '../modal/DeleteModal'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 function Table() {
@@ -21,6 +21,7 @@ function Table() {
   const router= useRouter()
   const searchParams = useSearchParams()
   const pathName = usePathname()
+  console.log(searchParams.get("page"));
 
   useEffect(() => {
     const f= async () => {
@@ -31,7 +32,7 @@ function Table() {
           fetchWithFilter(user,search)
         }
         else{
-          if(router){
+          if(router && searchParams.get("search")){
             const search=searchParams.get("search")
             fetchWithFilter(user,search)
           }
@@ -40,6 +41,7 @@ function Table() {
             .from('urls')
             .select()
             .eq('supabase_auth_id', user.id)
+            // .range(0, 4)
             !error ? setData(urls) : alert(error.message)
             setCurrentUserId(user.id)
           }
@@ -51,7 +53,15 @@ function Table() {
 
   const doSearch =async (e)=>{
     setSearch(e.target.value)
-    router.push(`${pathName}?search=${e.target.value}`)
+    router.replace(`${pathName}?search=${e.target.value}`)
+  }
+  const next=async()=>{
+    const { data: urls, error } = await supabase
+    .from('urls')
+    .select()
+    .range(0, 4)
+    !error ? setData(urls) : alert(error.message)
+    setCurrentUserId(user.id)
   }
 
   const fetchWithFilter = async (user, search)=>{

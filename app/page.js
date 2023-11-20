@@ -7,6 +7,7 @@ import { generateRandomText } from "@/utils/generateRandomString";
 import supabase from "./api/supabase";
 import { ThemeProvider } from "next-themes";
 import {checkUrl} from "@/utils/checkValidUrl";
+import HomeNavbar from "./components/Navbar";
 
 const cardsData=[
   {
@@ -102,10 +103,11 @@ export default function Home() {
   const copyUrl=()=>navigator.clipboard.writeText(`https://visits.id/p/${shortUrl}`)
   return (
     <ThemeProvider enableSystem={true} attribute="class">
-      <div className="relative overflow-hidden">
+      <HomeNavbar/>
+      <div className="relative overflow-hidden mt-12 sm:mt-18">
         <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-24">
           <div className="text-center">
-            <h1 className="text-4xl sm:text-6xl font-bold text-cyan-600 dark:text-cyan-500">
+            <h1 className="text-4xl sm:text-6xl font-bold text-blue-600 dark:text-blue-500">
               Visits.id
             </h1>
 
