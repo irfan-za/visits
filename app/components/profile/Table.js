@@ -1,5 +1,4 @@
-'use client'
-import React, { Fragment, useCallback, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import FormModal from '../modal/FormModal'
 import { Menu, Transition } from '@headlessui/react'
 import supabase from '../../api/supabase'

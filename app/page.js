@@ -103,6 +103,7 @@ export default function Home() {
   const copyUrl=()=>navigator.clipboard.writeText(`https://visits.id/p/${shortUrl}`)
   return (
     <ThemeProvider enableSystem={true} attribute="class">
+      <div className="bg-gray-100 dark:bg-gray-900">
       <HomeNavbar/>
       <div className="relative overflow-hidden mt-12 sm:mt-18">
         <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-24">
@@ -117,10 +118,10 @@ export default function Home() {
 
             <div className="mt-7 sm:mt-12 mx-auto max-w-xl relative">
               <form >
-                <div className="relative z-10 flex space-x-3 p-3 bg-gray-400 border rounded-lg shadow-lg shadow-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:shadow-gray-900/[.2]">
+                <div className="relative z-10 flex space-x-3 p-3 bg-white border border-gray-400 rounded-lg shadow-lg shadow-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:shadow-gray-900/[.2]">
                   <div className="flex-[100%]">
                     <label htmlFor="long_url" className="block text-sm text-gray-700 font-medium dark:text-white"><span className="sr-only">Search article</span></label>
-                    <input type="text" onChange={(e)=>checkUrl(e.target.value, setValidUrl, setLongUrl)} name="long_url" id="long_url" className="p-3 block w-full border-transparent rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 bg-gray-400 text-gray-700 dark:text-gray-400" placeholder="Masukkan link disini"/>
+                    <input type="text" onChange={(e)=>checkUrl(e.target.value, setValidUrl, setLongUrl)} name="long_url" id="long_url" className="p-3 block w-full border-transparent rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 bg-white text-gray-700 dark:text-gray-400 focus:outline-none" placeholder="Masukkan link disini"/>
                   </div>
                   <button type="submit" onClick={shortHandler} className="text-sm md:text-base flex items-center">
                     <Link className="p-2 sm:p-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" href="#">
@@ -189,6 +190,7 @@ export default function Home() {
         }
       </div>
       <Footer/>
+      </div>
       </ThemeProvider>
   )
 }
