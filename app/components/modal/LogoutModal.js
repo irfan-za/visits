@@ -1,6 +1,5 @@
 import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import supabase from '../../api/supabase'
 
 export default function LogoutModal({open,setOpen}) {
   const signout = async() =>{
