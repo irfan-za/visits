@@ -21,7 +21,6 @@ function Table() {
   const router= useRouter()
   const searchParams = useSearchParams()
   const pathName = usePathname()
-  console.log(searchParams.get("page"));
 
   useEffect(() => {
     const f= async () => {

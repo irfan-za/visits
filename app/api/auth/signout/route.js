@@ -3,20 +3,20 @@ import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
 export async function POST(req) {
-  const cookieStore = cookies()
-  const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
+  // const cookieStore = cookies()
+  // const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
 
-  // Check if we have a session
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
+  // // Check if we have a session
+  // const {
+  //   data: { session },
+  // } = await supabase.auth.getSession()
 
-  if (session) {
-    await supabase.auth.signOut()
-  }
+  // if (session) {
+  //   await supabase.auth.signOut()
+  // }
 
-  // return NextResponse.redirect(307,'/')
-  return NextResponse.redirect(new URL('/', req.url), {
-    status: 302,
-  })
+  return NextResponse.redirect(307,'/')
+  // return NextResponse.redirect(new URL('/', req.url), {
+  //   status: 302,
+  // })
 }

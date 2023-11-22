@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import LogoutModal from '../modal/LogoutModal';
 import supabase from '../../api/supabase';
 import DarkModeToggle from '../DarkModeToggle';
+import Image from 'next/image';
 
 function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -44,7 +45,11 @@ function Navbar() {
 
         <div className="relative inline-flex" data-hs-dropdown-placement="bottom-right">
           <button onClick={()=> setShowDropdown(!showDropdown)} type="button" className="w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-white hover:bg-white/20 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-1 focus:ring-gray-600">
-            <img className="inline-block h-[2.375rem] w-[2.375rem] rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Image Description"/>
+            <div className='inline-flex items-center justify-center rounded-full w-9 h-9 bg-gray-700'>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-gray-100">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
           </button>
           {
             showDropdown &&
