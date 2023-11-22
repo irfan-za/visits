@@ -102,7 +102,7 @@ export default function Home() {
     }
   }
   const copyUrl=()=>{
-    navigator.clipboard.writeText(`https://visits.id/p/${shortUrl}`)
+    navigator.clipboard.writeText(`https://visits.id/${shortUrl}`)
     setIsCopy(true)
     setTimeout(() => {
       setIsCopy(false)
@@ -162,7 +162,7 @@ export default function Home() {
               <p className="font-semibold text-gray-700 dark:text-gray-400 sm:text-lg">
                 Url singkat : 
                 <div className="group inline-flex relative">
-                    <button className="text-cyan-500 hover:text-cyan-600 underline" onClick={copyUrl} >https://visits.id/p/{shortUrl}</button>
+                    <button className="text-cyan-500 hover:text-cyan-600 underline" onClick={copyUrl} >https://visits.id/{shortUrl}</button>
                     <span className="group-hover:opacity-100 transition-opacity bg-gray-100 border px-4 py-1 text-sm text-gray-700 rounded-md absolute left-1/2 
                     -translate-x-1/2 -translate-y-14 z-10 opacity-0 m-4 mx-auto">Copy</span>
                     <span className={`${isCopy ? 'block' : 'hidden'} bg-green-300 border px-4 py-1 text-sm text-gray-700 rounded-md absolute left-1/2 

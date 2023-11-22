@@ -134,7 +134,7 @@ export default function FormModal({open, setOpen, title, currentUserId, currentE
                       <div>
                         <label htmlFor="customUrl" className="block text-sm mb-2 dark:text-gray-300 font-semibold">Url Kustom</label>
                         <div className='flex items-center'>
-                          <span className='font-medium text-lg'>https://visits.id/p/</span>
+                          <span className='font-medium text-lg'>https://visits.id/</span>
                           <input type="text" id="customUrl" name="customUrl" value={shortUrl} onChange={(e)=>setShortUrl(e.target.value)}
                             placeholder='custom-url'
                             className="py-3 px-3 block w-full border border-gray-400 rounded-lg text-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600" aria-describedby="customUrl-error"/>

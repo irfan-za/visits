@@ -1,14 +1,25 @@
 import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import { useRouter } from 'next/navigation'
 
 export default function LogoutModal({open,setOpen}) {
+  const router = useRouter()
   const signout = async() =>{
-    await fetch('/api/auth/signout',{
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    try {
+      const res=await fetch('/api/auth/signout',{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      const data= await res.json()
+      if(data.status===200){
+        router.replace('/')
+      }
+      
+    } catch (error) {
+     alert('Failed to log out') 
+    }
   }
   const cancelButtonRef = useRef(null)
 

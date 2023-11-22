@@ -150,7 +150,7 @@ function Table() {
                <tr key={row.id}>
                 <td className="h-px w-px whitespace-nowrap">
                   <div className="px-6 py-3 max-w-xs truncate hover:overflow-clip hover:text-clip">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">https://visits.id/p/{row.short_url}</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">https://visits.id/{row.short_url}</span>
                   </div>
                 </td>
                 <td className="h-px w-px whitespace-nowrap">

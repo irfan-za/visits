@@ -6,15 +6,18 @@ export async function POST(req) {
   const cookieStore = cookies()
   const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
 
-  const shortUrl= pathname.replace(/^\/p\//, '')
-  
-  const { data, error } = await supabaseMiddleware
+  const {shortUrl}= await req.json()
+  const { data, error } = await supabase
   .from('urls')
   .select('long_url')
   .eq('short_url', shortUrl)
   .single();
   
   if(!error){
-    return NextResponse.redirect(new URL(data.long_url, req.url));
+    return NextResponse.json({
+      status: 200,
+      message: 'Successfully get long url',
+      longUrl: data.long_url,
+    })
   }
 }

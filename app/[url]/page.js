@@ -1,29 +1,33 @@
 "use client"
 import { useRouter, usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import supabase from '../../api/supabase'
+import { useEffect } from 'react'
 
 export default function Url() {
   const router= useRouter()
   const shortUrl= usePathname()?.slice(1)
-  const [data, setData] = useState(null)
 
   useEffect(() => {
     async function f(){
-      const { data:d, error } = await supabase
-      .from('urls')
-      .select('long_url')
-      .eq('short_url', shortUrl)
-      .single();
-      setData(d)
+      try {
+        const res=await fetch('/api/redirect',{
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({shortUrl})
+        })
+        const data= await res.json()
+        if(data.status===200){
+          router.replace(data.longUrl)
+        }
+        
+      } catch (error) {
+       alert('Failed to get long url!') 
+      }
     }
      f()
   }, [])
   
-
-  if(data){
-    router.replace(data.long_url)
-  }
   return (
   <div className="w-full h-screen flex flex-col space-y-4 items-center justify-center">
     <div
