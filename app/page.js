@@ -62,6 +62,7 @@ export default function Home() {
   const [longUrl, setLongUrl] = useState('');
   const [shortUrl, setShortUrl] = useState(null);
   const [validUrl, setValidUrl] = useState(false);
+  const [isCopy, setIsCopy] = useState(false);
 
 
   
@@ -100,7 +101,13 @@ export default function Home() {
       alert("Link URL Tidak Valid!")
     }
   }
-  const copyUrl=()=>navigator.clipboard.writeText(`https://visits.id/p/${shortUrl}`)
+  const copyUrl=()=>{
+    navigator.clipboard.writeText(`https://visits.id/p/${shortUrl}`)
+    setIsCopy(true)
+    setTimeout(() => {
+      setIsCopy(false)
+    }, 1500);
+  }
   return (
     <ThemeProvider enableSystem={true} attribute="class">
       <div className="bg-gray-100 dark:bg-gray-900">
@@ -158,6 +165,8 @@ export default function Home() {
                     <button className="text-cyan-500 hover:text-cyan-600 underline" onClick={copyUrl} >https://visits.id/p/{shortUrl}</button>
                     <span className="group-hover:opacity-100 transition-opacity bg-gray-100 border px-4 py-1 text-sm text-gray-700 rounded-md absolute left-1/2 
                     -translate-x-1/2 -translate-y-14 z-10 opacity-0 m-4 mx-auto">Copy</span>
+                    <span className={`${isCopy ? 'block' : 'hidden'} bg-green-300 border px-4 py-1 text-sm text-gray-700 rounded-md absolute left-1/2 
+                    -translate-x-1/2 -translate-y-14 z-10 m-4 mx-auto`}>Copied</span>
                 </div>
               </p>
 
