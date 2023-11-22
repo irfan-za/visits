@@ -6,17 +6,15 @@ export async function POST(req) {
   const cookieStore = cookies()
   const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
 
-  // Check if we have a session
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
-
-  if (session) {
-    await supabase.auth.signOut()
+  const shortUrl= pathname.replace(/^\/p\//, '')
+  
+  const { data, error } = await supabaseMiddleware
+  .from('urls')
+  .select('long_url')
+  .eq('short_url', shortUrl)
+  .single();
+  
+  if(!error){
+    return NextResponse.redirect(new URL(data.long_url, req.url));
   }
-
-  // return NextResponse.redirect(307,'/')
-  return NextResponse.redirect(new URL('/', req.url), {
-    status: 302,
-  })
 }

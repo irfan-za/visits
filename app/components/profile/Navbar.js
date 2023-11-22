@@ -50,7 +50,7 @@ function Navbar() {
             showDropdown &&
             <div className=" absolute -left-48 top-10 min-w-[13rem] z-10 bg-white shadow-md rounded-lg p-2 dark:bg-gray-800 dark:border dark:border-gray-700" aria-labelledby="hs-dropdown-with-header">
               <div className="py-3 px-5 -m-2 bg-gray-100 rounded-t-lg dark:bg-gray-700">
-                <p className="z text-sm text-gray-500 dark:text-gray-400">{currentUserName?.name}</p>
+                <p className="z text-sm text-gray-500 dark:text-gray-100">{currentUserName?.name}</p>
                 <p className="z text-sm font-medium text-gray-800 dark:text-gray-300">{currentUserAuth?.email}</p>
               </div>
               <div className="mt-2 py-2 first:pt-0 last:pb-0">

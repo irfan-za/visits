@@ -106,16 +106,16 @@ export default function FormModal({open, setOpen, title, currentUserId, currentE
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                  <Dialog.Title as="h3" className="text-lg font-semibold leading-6 text-gray-900 text-center mb-2 w-full">
+                <div className="bg-white dark:bg-gray-700 px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                  <Dialog.Title as="h3" className="text-lg font-semibold leading-6 text-gray-900 dark:text-gray-100 text-center mb-2 w-full">
                     {title}
                   </Dialog.Title>
                   <form onSubmit={submitForm}>
                     <div className="grid gap-y-4">
                       <div>
-                        <label htmlFor="longUrl" className="block text-sm mb-2 dark:text-white font-semibold">Url Panjang</label>
+                        <label htmlFor="longUrl" className="block text-sm mb-2 dark:text-gray-300 font-semibold">Url Panjang</label>
                         <div className="relative">
-                          <input type="text" id="longUrl" name="longUrl" value={longUrl} onChange={(e)=>setLongUrl(e.target.value)} className="py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600" required aria-describedby="longUrl-error"
+                          <input type="text" id="longUrl" name="longUrl" value={longUrl} onChange={(e)=>setLongUrl(e.target.value)} className="py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600" required aria-describedby="longUrl-error"
                             placeholder='https://website.com/123'/>
                           {
                             longUrlError &&
@@ -132,25 +132,25 @@ export default function FormModal({open, setOpen, title, currentUserId, currentE
                         }
                       </div>
                       <div>
-                        <label htmlFor="customUrl" className="block text-sm mb-2 dark:text-white font-semibold">Url Kustom</label>
+                        <label htmlFor="customUrl" className="block text-sm mb-2 dark:text-gray-300 font-semibold">Url Kustom</label>
                         <div className='flex items-center'>
                           <span className='font-medium text-lg'>https://visits.id/p/</span>
                           <input type="text" id="customUrl" name="customUrl" value={shortUrl} onChange={(e)=>setShortUrl(e.target.value)}
                             placeholder='custom-url'
-                            className="py-3 px-3 block w-full border border-gray-400 rounded-lg text-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600" aria-describedby="customUrl-error"/>
+                            className="py-3 px-3 block w-full border border-gray-400 rounded-lg text-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600" aria-describedby="customUrl-error"/>
                         </div>
                       </div>
                       
-                      <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                      <div className="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                         <button
                           type="submit"
-                          className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
+                          className="inline-flex w-full justify-center rounded-md bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-600 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
                         >
                           Simpan
                         </button>
                         <button
                           type="button"
-                          className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                          className="mt-3 inline-flex w-full justify-center rounded-md bg-white dark:bg-gray-600 px-3 py-2 text-sm font-medium text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                           onClick={() => {setOpen(false);}}
                           ref={cancelButtonRef}
                         >

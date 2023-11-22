@@ -9,10 +9,6 @@ export default function HomeNavbar() {
 
           <div className="inline-flex items-center justify-end grow gap-x-4">
             <DarkModeToggle/>
-            {/* <Link className="flex items-center font-medium text-blue-500 hover:text-white border-2 border-blue-500 hover:border-blue-600 hover:bg-blue-600 rounded-md px-2 py-1 sm:px-4 sm:py-1.5" href="/auth/register">
-              Daftar
-            </Link>
-            <span className="border-2 border-l border-gray-700 dark:border-white h-7 sm:h-9"></span> */}
             <Link className="flex items-center font-medium text-white bg-gradient-to-r bg-blue-500 hover:bg-blue-600 rounded-full px-2 py-1 sm:px-4 sm:py-1.5" href="/auth/login">
               Masuk / Daftar
             </Link>

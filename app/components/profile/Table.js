@@ -171,13 +171,13 @@ function Table() {
                         <svg className="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
                       </Menu.Button>
                       <Transition as={Fragment}>
-                        <Menu.Items  className="absolute right-0 mt-2 w-24 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none z-10">
+                        <Menu.Items  className="absolute right-0 mt-2 w-24 origin-top-right divide-y divide-gray-100 rounded-md bg-white dark:bg-gray-700 shadow-lg ring-1 ring-black/5 focus:outline-none z-10">
                         <div className="px-1 py-1 ">
                           <Menu.Item>
                           {({ active }) => (
                             <button 
                             onClick={()=>{setTitle("Edit Url"); setOpen(true); setCurrentEditData(row.id); setShortUrl(row.short_url); setLongUrl(row.long_url);}}
-                            className={`${active && 'bg-blue-200'} flex items-center justify-center w-full py-2 px-3 rounded-lg text-sm text-gray-800 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600`}>
+                            className={`${active && 'bg-blue-200 dark:bg-blue-800'} flex items-center justify-center w-full py-2 px-3 rounded-lg text-sm text-gray-800 focus:ring-2 focus:ring-blue-500 dark:text-gray-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600`}>
                               Edit
                             </button>
                             )}
@@ -186,7 +186,7 @@ function Table() {
                           {({ active }) => (
                             <button 
                               onClick={()=>{setOpenDeleteModal(true); setCurrentDeleteData(row.id);}}
-                              className={`${active && 'bg-red-200'} flex items-center justify-center w-full py-2 px-3 rounded-lg text-sm text-gray-800  focus:ring-2 focus:ring-red-500 dark:text-gray-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600`}>
+                              className={`${active && 'bg-red-200 dark:bg-red-800'} flex items-center justify-center w-full py-2 px-3 rounded-lg text-sm text-gray-800  focus:ring-2 focus:ring-red-500 dark:text-gray-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600`}>
                               Hapus
                             </button>
                             )}
