@@ -34,7 +34,7 @@ function Navbar() {
   
 
   return (
-    <header className="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-blue-600 border-b border-gray-700 text-sm py-2.5 sm:py-4">
+    <header className="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-white dark:bg-blue-600 border-b border-gray-700 text-sm py-2.5 sm:py-4">
     <nav className="max-w-7xl flex basis-full items-center w-full mx-auto px-4 sm:px-6 lg:px-8" aria-label="Global">
       <div className="me-5 md:me-8">
         <Link className="flex-none text-xl font-semibold text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="/" aria-label="Brand">Visits</Link>
