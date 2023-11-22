@@ -4,6 +4,7 @@ import { Menu, Transition } from '@headlessui/react'
 import supabase from '../../api/supabase'
 import DeleteModal from '../modal/DeleteModal'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { formatDate } from '@/utils/formatDate'
 
 function Table() {
   const [open, setOpen] = useState(false)
@@ -40,7 +41,7 @@ function Table() {
             .from('urls')
             .select()
             .eq('supabase_auth_id', user.id)
-            // .range(0, 4)
+            .order('created_at', { ascending: false })
             !error ? setData(urls) : alert(error.message)
             setCurrentUserId(user.id)
           }
@@ -59,6 +60,7 @@ function Table() {
     .from('urls')
     .select()
     .range(0, 4)
+    .order('created_at', { ascending: false })
     !error ? setData(urls) : alert(error.message)
     setCurrentUserId(user.id)
   }
@@ -68,6 +70,7 @@ function Table() {
     .from('urls')
     .select()
     .or(`short_url.ilike.%${search}%,long_url.ilike.%${search}%`)
+    .order('created_at', { ascending: false })
     !error ? setData(urls) : alert(error.message)
     setCurrentUserId(user.id)
   }
@@ -95,16 +98,18 @@ function Table() {
                   <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
                     <svg className="flex-shrink-0 h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                   </div>
-                  <input type="text" id="icon" name="icon" onChange={(e)=>doSearch(e)} className="py-2 px-4 ps-11 pe-20 block w-92 md:w-96 bg-transparent border border-gray-700 shadow-sm rounded-lg text-sm text-gray-700 focus:border-gray-900 focus:ring-gray-600 placeholder:text-gray-500" placeholder="Cari"/>      
+                  <input type="text" id="icon" name="icon" onChange={(e)=>doSearch(e)} className="py-2 px-4 ps-11 pe-20 block md:w-96 bg-transparent border border-gray-700 shadow-sm rounded-lg text-sm text-gray-700 focus:border-gray-900 focus:ring-gray-600 placeholder:text-gray-500" placeholder="Cari"/>      
                 </div>
               </div>
               
+              <div className='relative'>
               <button
               onClick={()=>{setOpen(true); setTitle("Buat Url Baru")}}
-               className="max-w-[70%] py-2 px-3 inline-flex justify-center items-center text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" >
+               className="w-[19rem] py-2 px-3 flex justify-center items-center text-sm font-semibold rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" >
                 <svg className="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                 Buat
               </button>
+              </div>
             </div>
           </div>
           {/* <!-- End Header --> */}
@@ -156,7 +161,7 @@ function Table() {
                 </td>
                 <td className="h-px w-px whitespace-nowrap">
                   <div className="px-6 py-3 max-w-xs truncate hover:overflow-clip hover:text-clip">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">{row.created_at}</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">{formatDate(row.created_at)}</span>
                   </div>
                 </td>
                 <td className="h-px w-px whitespace-nowrap">
