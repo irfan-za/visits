@@ -81,7 +81,7 @@ function Table() {
 <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto mt-12 sm:mt-18">
   {/* <!-- Card --> */}
   <div className="flex flex-col">
-    <div className="-m-1.5 overflow-x-auto">
+    <div className="-m-1.5">
       <div className="p-1.5 min-w-full inline-block align-middle">
         <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-slate-900 dark:border-gray-700">
           {/* <!-- Header --> */}
@@ -90,21 +90,21 @@ function Table() {
               Kelola Tautan
             </h2>
 
-            <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-4">
-              <div className="w-full">
+            <div className="flex flex-row space-x-2 md:space-x-4">
+              <div className="">
                 <label htmlFor="icon" className="sr-only">Search</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
                     <svg className="flex-shrink-0 h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                   </div>
-                  <input type="text" id="icon" name="icon" onChange={(e)=>doSearch(e)} className="py-2 px-4 ps-11 pe-20 block md:w-96 bg-transparent border border-gray-700 shadow-sm rounded-lg text-sm text-gray-700 focus:border-gray-900 focus:ring-gray-600 placeholder:text-gray-500" placeholder="Cari"/>      
+                  <input type="text" id="icon" name="icon" onChange={(e)=>doSearch(e)} className="py-2 px-4 ps-11 pe-20 block w-full md:w-96 bg-transparent border border-gray-700 shadow-sm rounded-lg text-sm text-gray-700 focus:border-gray-900 focus:ring-gray-600 placeholder:text-gray-500" placeholder="Cari"/>      
                 </div>
               </div>
               
-              <div className='relative'>
+              <div className='block '>
               <button
               onClick={()=>{setOpen(true); setTitle("Buat Url Baru")}}
-               className="w-[19rem] md:w-fit py-2 px-3 flex justify-center items-center text-sm font-semibold rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" >
+               className="w-fit py-2 px-3 flex justify-center items-center text-sm font-semibold rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" >
                 <svg className="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                 Buat
               </button>
@@ -114,7 +114,7 @@ function Table() {
           {/* <!-- End Header --> */}
 
           {/* <!-- Table --> */}
-          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <table className="w-96 md:min-w-full block overflow-x-scroll  divide-y divide-gray-200 dark:divide-gray-700">
             <thead className="bg-gray-50 dark:bg-slate-900">
               <tr>
                 <th scope="col" className="px-6 py-3 text-start">
