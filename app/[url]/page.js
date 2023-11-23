@@ -1,5 +1,5 @@
 "use client"
-import { useRouter, usePathname } from 'next/navigation'
+import { useRouter, usePathname, notFound } from 'next/navigation'
 import { useEffect } from 'react'
 
 export default function Url() {
@@ -22,7 +22,8 @@ export default function Url() {
         }
         
       } catch (error) {
-       alert('Failed to get long url!') 
+        // notFound()
+        alert('Failed to fetch!')
       }
     }
      f()

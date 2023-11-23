@@ -82,7 +82,7 @@ function Table() {
   {/* <!-- Card --> */}
   <div className="flex flex-col">
     <div className="-m-1.5">
-      <div className="p-1.5 min-w-full inline-block align-middle">
+      <div className="p-1.5 w-full inline-block align-middle">
         <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-slate-900 dark:border-gray-700">
           {/* <!-- Header --> */}
           <div className="px-6 py-4 flex flex-col md:flex-row space-y-3 md:space-y-0 md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
@@ -114,7 +114,7 @@ function Table() {
           {/* <!-- End Header --> */}
 
           {/* <!-- Table --> */}
-          <table className="w-96 md:min-w-full block overflow-x-scroll  divide-y divide-gray-200 dark:divide-gray-700">
+          <table className="w-full md:min-w-full inline-block md:table overflow-x-auto  divide-y divide-gray-200 dark:divide-gray-700">
             <thead className="bg-gray-50 dark:bg-slate-900">
               <tr>
                 <th scope="col" className="px-6 py-3 text-start">
@@ -165,12 +165,12 @@ function Table() {
                 </td>
                 <td className="h-px w-px whitespace-nowrap">
                   <Menu as="div" className="px-6 py-1.5">
-                    <div className=" relative inline-block">
+                    <div className=" sm:relative inline-block">
                       <Menu.Button type="button" className="py-1.5 px-2 inline-flex justify-center items-center gap-2 rounded-lg text-gray-700 align-middle disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800">
                         <svg className="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
                       </Menu.Button>
                       <Transition as={Fragment}>
-                        <Menu.Items  className="absolute right-0 mt-2 w-24 origin-top-right divide-y divide-gray-100 rounded-md bg-white dark:bg-gray-700 shadow-lg ring-1 ring-black/5 focus:outline-none z-10">
+                        <Menu.Items  className="absolute right-10 sm:right-0 mt-2 w-24 origin-top-right divide-y divide-gray-100 rounded-md bg-white dark:bg-gray-700 shadow-lg ring-1 ring-black/5 focus:outline-none z-10">
                         <div className="px-1 py-1 ">
                           <Menu.Item>
                           {({ active }) => (

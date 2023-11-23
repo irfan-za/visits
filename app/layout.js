@@ -4,7 +4,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Visits',
+  title: 'Visits | Shortlink pemendek tautan URL',
   description: 'Perpendek tautan panjang dengan cepat dan mudah menggunakan Website Visits.id. Tingkatkan berbagi tautan dan lacak statistik pengunjung.',
   keywords: 'Short URL, pemendek URL, URL pendek, pendekkan tautan, pengalihan URL, pelacakan tautan',
   openGraph: {
