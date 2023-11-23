@@ -7,7 +7,7 @@ import { generateRandomText } from "@/utils/generateRandomString";
 import supabase from "./api/supabase";
 import { ThemeProvider } from "next-themes";
 import {checkUrl} from "@/utils/checkValidUrl";
-import HomeNavbar from "./components/Navbar";
+import Navbar from "./components/Navbar";
 
 const cardsData=[
   {
@@ -111,7 +111,7 @@ export default function Home() {
   return (
     <ThemeProvider enableSystem={true} attribute="class">
       <div className="bg-gray-100 dark:bg-gray-900">
-      <HomeNavbar/>
+      <Navbar currentUserAuth={null} currentUserName={null} />
       <div className="relative overflow-hidden mt-12 sm:mt-18">
         <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-24">
           <div className="text-center">
