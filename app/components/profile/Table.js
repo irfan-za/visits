@@ -54,15 +54,15 @@ function Table() {
     setSearch(e.target.value)
     router.replace(`${pathName}?search=${e.target.value}`)
   }
-  const next=async()=>{
-    const { data: urls, error } = await supabase
-    .from('urls')
-    .select()
-    .range(0, 4)
-    .order('created_at', { ascending: false })
-    !error ? setData(urls) : alert(error.message)
-    setCurrentUserId(user.id)
-  }
+  // const next=async()=>{
+  //   const { data: urls, error } = await supabase
+  //   .from('urls')
+  //   .select()
+  //   .range(0, 4)
+  //   .order('created_at', { ascending: false })
+  //   !error ? setData(urls) : alert(error.message)
+  //   setCurrentUserId(user.id)
+  // }
 
   const fetchWithFilter = async (user, search)=>{
     const { data: urls, error } = await supabase

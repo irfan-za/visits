@@ -5,9 +5,20 @@ import Card from "./components/Card";
 import { useState } from "react";
 import { generateRandomText } from "@/utils/generateRandomString";
 import supabase from "./api/supabase";
-import { ThemeProvider } from "next-themes";
 import {checkUrl} from "@/utils/checkValidUrl";
 import Navbar from "./components/Navbar";
+import { ThemeProvider } from "next-themes";
+
+
+
+
+
+
+
+
+
+
+
 
 const cardsData=[
   {

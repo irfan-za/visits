@@ -1,26 +1,13 @@
 import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import supabase from '../../api/supabase'
-import { useRouter } from 'next/navigation'
 
-export default function DeleteModal({openDeleteModal,setOpenDeleteModal, currentDeleteData}) {
-  const router = useRouter()
-  const deleteData= async() =>{
-    const { error } = await supabase
-    .from('urls')
-    .delete()
-    .eq('id', currentDeleteData)
-    if(!error) {
-      router.refresh()
-    }else{
-      alert(error.message)
-    }
-  }
+export default function SuccessForgotPassword({open,setOpen}) {
+
   const cancelButtonRef = useRef(null)
 
   return (
-    <Transition.Root show={openDeleteModal} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpenDeleteModal}>
+    <Transition.Root show={open} as={Fragment}>
+      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -47,19 +34,20 @@ export default function DeleteModal({openDeleteModal,setOpenDeleteModal, current
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div className="bg-white dark:bg-gray-700 px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
-                    <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-red-500">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                    </svg>
+                    <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-green-500">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                      </svg>
+
 
                     </div>
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                       <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900 dark:text-gray-100">
-                        Hapus Url
+                        Berhasil Mengirim Link Reset Password
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500 dark:text-gray-300">
-                          Apakah kamu yakin ingin menghapus url?
+                          Silahkan cek Email anda untuk mereset password.
                         </p>
                       </div>
                     </div>
@@ -68,18 +56,10 @@ export default function DeleteModal({openDeleteModal,setOpenDeleteModal, current
                 <div className="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-red-600 dark:bg-red-700 dark:hover:bg-red-600 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                    onClick={() => {setOpenDeleteModal(false); deleteData()}}
+                    className="inline-flex w-full justify-center rounded-md bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-600 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+                    onClick={() => {setOpen(false)}}
                   >
-                    Hapus
-                  </button>
-                  <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white dark:bg-gray-600 px-3 py-2 text-sm font-medium text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                    onClick={() => setOpenDeleteModal(false)}
-                    ref={cancelButtonRef}
-                  >
-                    Batal
+                    Oke
                   </button>
                 </div>
               </Dialog.Panel>
