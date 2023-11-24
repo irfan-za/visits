@@ -9,17 +9,6 @@ import {checkUrl} from "@/utils/checkValidUrl";
 import Navbar from "./components/Navbar";
 import { ThemeProvider } from "next-themes";
 
-
-
-
-
-
-
-
-
-
-
-
 const cardsData=[
   {
     title: "Mudah",
@@ -101,11 +90,10 @@ export default function Home() {
         postData
       ])
       .select().single()
-      if (data) {
+      if (!error) {
         setShortUrl(data.short_url)
-        console.log(data);
       } else {
-        console.log(error);
+        alert(error.message)
       }
     }
     else{
