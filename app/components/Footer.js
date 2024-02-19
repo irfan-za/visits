@@ -1,11 +1,13 @@
-import React from 'react'
+import React from "react";
 
 function Footer() {
   return (
-    <div className='text-center py-4 mt-16'>
-      <span>© {new Date().getFullYear()} Visits.id - Situs persingkat tautan.</span>
+    <div className="mt-16 py-4 text-center">
+      <span>
+        © {new Date().getFullYear()} Visits.id - Situs persingkat tautan.
+      </span>
     </div>
-  )
+  );
 }
 
-export default Footer
+export default Footer;
