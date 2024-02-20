@@ -5,10 +5,15 @@ export async function middleware(req) {
   const res = NextResponse.next();
   const supabaseMiddleware = createMiddlewareClient({ req, res });
   const pathname = req.nextUrl.pathname;
+  
   // protecting routes
   const {
     data: { user },
   } = await supabaseMiddleware.auth.getUser();
+  if (!user && pathname.startsWith("/dashboard")){
+    const url = new URL("/", req.url);
+    return NextResponse.redirect(url.href);
+  }
   if (pathname === "/profile" && !user) {
     const url = new URL("/", req.url);
     return NextResponse.redirect(url.href);
@@ -20,5 +25,5 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/profile", "/auth/:path*"],
+  matcher: ["/profile", "/auth/:path*", "/dashboard/:path*"],
 };

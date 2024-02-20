@@ -1,9 +1,25 @@
 import { BarChart4, Calendar, Edit, Share, Share2 } from "lucide-react"
 import { Button } from "./ui/button"
+import supabase from "@/app/api/supabase";
 
 async function LinkList({search, currentPage}) {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const { data: urls, error } = await supabase
+              .from("urls")
+              .select()
+              .eq("supabase_auth_id", user?.id)
+              .order("created_at", { ascending: false });
+            !error ? setData(urls) : console.log(error.message);
+  if(user){
+  }
+  console.log(user, urls, error);
   return (
     <div className='border rounded-lg px-4 py-2 bg-white'>
+      {
+        JSON.stringify(urls)
+      }
       <section className="flex justify-between py-4">
         <div>
           <h4 className='text-xl font-semibold text-gray-700 hover:underline'>visits.id/short</h4>

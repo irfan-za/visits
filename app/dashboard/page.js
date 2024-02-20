@@ -1,7 +1,6 @@
-import React from "react";
 
-function Dashboard() {
-  return <div>Dashboard</div>;
+export default async function Dashboard() {
+  return <div className="mt-24">dash</div>;
 }
 
-export default Dashboard;
+

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Footer from "../components/Footer";
 import Card from "../components/Card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { generateRandomText } from "@/utils/generateRandomString";
 import supabase from "./api/supabase";
 import { checkUrl } from "@/utils/checkValidUrl";
@@ -139,6 +139,16 @@ export default function Home() {
   const [shortUrl, setShortUrl] = useState(null);
   const [validUrl, setValidUrl] = useState(false);
   const [isCopy, setIsCopy] = useState(false);
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    const f=async()=>{
+      const {data: {session}} = await supabase.auth.getSession()
+      setSession(session)
+    }
+    f()
+  }, [])
+  
 
   const shortHandler = async (e) => {
     e.preventDefault();
@@ -181,10 +191,11 @@ export default function Home() {
       setIsCopy(false);
     }, 1500);
   };
+
   return (
     <ThemeProvider enableSystem={true} attribute="class">
       <div className="bg-gray-100 dark:bg-gray-900">
-        <Navbar currentUserAuth={null} currentUserName={null} />
+        <Navbar session={session} currentUserAuth={null} currentUserName={null} />
         <div className="sm:mt-18 relative mt-12 overflow-hidden">
           <div className="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 sm:py-24 lg:px-8">
             <div className="text-center">
