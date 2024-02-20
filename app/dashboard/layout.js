@@ -5,9 +5,7 @@ export default function DashboardLayout({ children }) {
     <html>
       <body>
         <Sidebar />
-        <div  className='lg:pl-72'>
-          {children}
-        </div>
+        <div className="lg:pl-72">{children}</div>
       </body>
     </html>
   );

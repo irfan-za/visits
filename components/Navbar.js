@@ -4,7 +4,7 @@ import LogoutModal from "./modal/LogoutModal";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-export default function Navbar({session, currentUserAuth, currentUserName }) {
+export default function Navbar({ session, currentUserAuth, currentUserName }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -28,11 +28,9 @@ export default function Navbar({session, currentUserAuth, currentUserName }) {
             <DarkModeToggle />
             <Link
               className="flex items-center rounded-full bg-blue-500 bg-gradient-to-r px-2 py-1 font-medium text-white hover:bg-blue-600 sm:px-4 sm:py-1.5"
-              href="/auth/login"
+              href={`${session ? "/dashboard" : "/auth/login"}`}
             >
-              {
-                session?.user ? "Dashboard" : "Masuk / Daftar"
-              }
+              {session ? "Dashboard" : "Masuk / Daftar"}
             </Link>
           </div>
         ) : (

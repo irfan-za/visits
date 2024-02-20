@@ -5,12 +5,12 @@ export async function middleware(req) {
   const res = NextResponse.next();
   const supabaseMiddleware = createMiddlewareClient({ req, res });
   const pathname = req.nextUrl.pathname;
-  
+
   // protecting routes
   const {
     data: { user },
   } = await supabaseMiddleware.auth.getUser();
-  if (!user && pathname.startsWith("/dashboard")){
+  if (!user && pathname.startsWith("/dashboard")) {
     const url = new URL("/", req.url);
     return NextResponse.redirect(url.href);
   }

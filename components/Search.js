@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -26,17 +26,17 @@ function Search() {
       </label>
       <div className="relative">
         <input
-            type="text"
-            id="icon"
-            name="icon"
-            onChange={(e) => doSearch(e.target.value)}
-            defaultValue={searchParams.get("search")?.toString()}
-            className="py-2 px-4 ps-11 pe-20 block w-full md:w-96 bg-transparent border border-gray-700 shadow-sm rounded-lg text-sm text-gray-700 focus:border-gray-900 focus:ring-gray-600 placeholder:text-gray-500"
-            placeholder="Cari"
-          />
-        <div className="absolute bottom-1/4 flex items-center pointer-events-none z-20 ps-4">
+          type="text"
+          id="icon"
+          name="icon"
+          onChange={(e) => doSearch(e.target.value)}
+          defaultValue={searchParams.get("search")?.toString()}
+          className="block w-full rounded-lg border border-gray-700 bg-transparent px-4 py-2 pe-20 ps-11 text-sm text-gray-700 shadow-sm placeholder:text-gray-500 focus:border-gray-900 focus:ring-gray-600 md:w-96"
+          placeholder="Cari"
+        />
+        <div className="pointer-events-none absolute bottom-1/4 z-20 flex items-center ps-4">
           <svg
-            className="flex-shrink-0 h-4 w-4 text-gray-500"
+            className="h-4 w-4 flex-shrink-0 text-gray-500"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
