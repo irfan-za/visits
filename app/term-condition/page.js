@@ -1,7 +1,7 @@
 "use client";
 import { ThemeProvider } from "next-themes";
 import React from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/Navbar";
 
 function TermCondition() {
   return (

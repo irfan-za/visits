@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import FormModal from "../modal/FormModal";
 import { Menu, Transition } from "@headlessui/react";
-import supabase from "../../api/supabase";
+import supabase from "../../app/api/supabase";
 import DeleteModal from "../modal/DeleteModal";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { formatDate } from "@/utils/formatDate";

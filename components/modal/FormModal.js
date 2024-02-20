@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import supabase from "../../api/supabase";
+import supabase from "../../app/api/supabase";
 import Link from "next/link";
 import { checkUrl } from "@/utils/checkValidUrl";
 import { generateRandomText } from "@/utils/generateRandomString";

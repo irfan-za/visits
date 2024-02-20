@@ -1,7 +1,7 @@
 "use client";
 import { ThemeProvider } from "next-themes";
-import Navbar from "../components/Navbar";
-import Table from "../components/profile/Table";
+import Navbar from "../../components/Navbar";
+import Table from "../../components/profile/Table";
 import { useEffect, useState } from "react";
 import supabase from "../api/supabase";
 

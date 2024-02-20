@@ -1,6 +1,6 @@
 "use client";
 import supabase from "@/app/api/supabase";
-import SuccessForgotPassword from "@/app/components/modal/SuccessForgotPasswordModal";
+import SuccessForgotPassword from "@/components/modal/SuccessForgotPasswordModal";
 import React, { useState } from "react";
 
 function ForgotPassword() {

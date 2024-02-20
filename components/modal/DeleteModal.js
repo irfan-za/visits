@@ -1,6 +1,6 @@
 import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import supabase from "../../api/supabase";
+import supabase from "../../app/api/supabase";
 import { useRouter } from "next/navigation";
 
 export default function DeleteModal({

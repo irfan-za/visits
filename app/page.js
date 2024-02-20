@@ -1,12 +1,12 @@
 "use client";
 import Link from "next/link";
-import Footer from "./components/Footer";
-import Card from "./components/Card";
+import Footer from "../components/Footer";
+import Card from "../components/Card";
 import { useState } from "react";
 import { generateRandomText } from "@/utils/generateRandomString";
 import supabase from "./api/supabase";
 import { checkUrl } from "@/utils/checkValidUrl";
-import Navbar from "./components/Navbar";
+import Navbar from "../components/Navbar";
 import { ThemeProvider } from "next-themes";
 
 const cardsData = [
@@ -204,7 +204,6 @@ export default function Home() {
                         htmlFor="long_url"
                         className="block text-sm font-medium text-gray-700 dark:text-white"
                       >
-                        <span className="sr-only">Search article</span>
                       </label>
                       <input
                         type="text"
