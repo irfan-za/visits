@@ -4,7 +4,7 @@ import Link from "next/link";
 function InputLink() {
   return (
     <form action={createShortLink}>
-      <div className="relative z-10 flex max-w-xl space-x-3 rounded-lg border border-gray-400 bg-white p-3 shadow-lg shadow-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:shadow-gray-900/[.2]">
+      <div className="relative flex max-w-xl space-x-3 rounded-lg border border-gray-400 bg-white p-3 shadow-lg shadow-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:shadow-gray-900/[.2]">
         <div className="flex-[100%]">
           <label
             htmlFor="long_url"

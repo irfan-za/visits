@@ -22,8 +22,6 @@ export default function FormModal({
   const cancelButtonRef = useRef(null);
 
   useEffect(() => {
-    console.log(longUrl);
-
     return async () => {
       if (currentEditData) {
         const { data: url, error } = await supabase
@@ -37,7 +35,7 @@ export default function FormModal({
         }
       }
     };
-  }, [currentEditData]);
+  }, [currentEditData, setShortUrl, setLongUrl]);
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -77,7 +75,6 @@ export default function FormModal({
         supabase_auth_id: currentUserId,
       };
     }
-    console.log(data);
     const { error } = await supabase.from("urls").insert(data);
     if (error) {
       alert(error.message);
