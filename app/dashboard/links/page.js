@@ -2,6 +2,7 @@ import InputLink from "@/components/InputLink";
 import LinkList from "@/components/list/LinkList";
 import ListSkeleton from "@/components/list/ListSkeleton";
 import Search from "@/components/Search";
+import { Toaster } from "@/components/ui/toaster";
 import { Suspense } from "react";
 
 function page({ searchParams }) {
@@ -25,6 +26,7 @@ function page({ searchParams }) {
           <LinkList search={search} currentPage={currentPage} />
         </Suspense>
       </div>
+      <Toaster />
     </div>
   );
 }
