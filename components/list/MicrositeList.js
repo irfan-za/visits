@@ -11,33 +11,35 @@ import {
 } from "../ui/dropdown-menu";
 import { socialMedia } from "@/utils/socialMedia";
 
-async function LinkList({ search, currentPage }) {
+async function MicrositeList({ search, currentPage }) {
   const {
     data: { user },
   } = await supabaseServer.auth.getUser();
-  const { data: urls, error } = await supabaseServer
-    .from("urls")
+  const { data: microsites, error } = await supabaseServer
+    .from("microsites")
     .select()
     .eq("supabase_auth_id", user.id)
     .order("created_at", { ascending: false });
 
-  const filteredData = urls?.filter((url) => url.long_url.includes(search));
+  const filteredData = microsites?.filter((microsite) =>
+    microsite.title.includes(search),
+  );
   return (
     <>
       {filteredData ? (
-        filteredData.map((url) => {
+        filteredData.map((site) => {
           return (
             <div
-              key={url.id}
+              key={site.id}
               className="mb-4 rounded-lg border border-gray-400 bg-white px-4 py-2"
             >
               <section className="flex justify-between py-4">
-                <Link href={`https://visits.id/${url.short_url}`}>
+                <Link href={`https://visits.id/m/${site.short_url}`}>
                   <h4 className="text-xl font-semibold text-gray-700 hover:underline">
-                    visits.id/{url.short_url}
+                    {site.title}
                   </h4>
                   <p className="max-w-xs truncate text-sm text-gray-600 hover:underline sm:max-w-md sm:text-base lg:max-w-xl">
-                    {url.long_url}
+                    visits.id/{site.short_url}
                   </p>
                 </Link>
                 <div className="flex space-x-2">
@@ -56,7 +58,7 @@ async function LinkList({ search, currentPage }) {
                       ))}
                     </DropdownMenuContent>
                   </DropdownMenu>
-                  <Link href={`/dashboard/links/${url.id}`}>
+                  <Link href={`/dashboard/microsite/${site.id}`}>
                     <Button variant="secondary">
                       <Edit size={18} className="mr-2" /> Edit
                     </Button>
@@ -67,7 +69,7 @@ async function LinkList({ search, currentPage }) {
                 <div className="flex items-center">
                   <Calendar size={18} color="rgb(107 114 128)" />
                   <span className="ml-2 text-sm text-gray-500">
-                    {formatDate(url.created_at)}
+                    {formatDate(site.created_at)}
                   </span>
                 </div>
                 <Button variant="secondary">
@@ -96,4 +98,4 @@ async function LinkList({ search, currentPage }) {
   );
 }
 
-export default LinkList;
+export default MicrositeList;

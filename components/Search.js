@@ -3,14 +3,17 @@
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
+import { useToast } from "./ui/use-toast";
 
 function Search() {
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
   const pathname = usePathname();
   const { replace } = useRouter();
+  const { toast } = useToast();
 
   const doSearch = useDebouncedCallback((term) => {
+    toast({ description: `Mencari ${term}` });
     if (term) {
       params.set("search", term);
     } else {

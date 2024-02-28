@@ -77,9 +77,15 @@ export function InputForm({
             <FormItem>
               <FormLabel>Tautan singkat</FormLabel>
               <FormControl>
-                <span className="flex items-center justify-center space-x-2 text-2xl font-medium">
-                  <span>visits.id/</span>
-                  <Input placeholder="Tautan singkat" {...field} />
+                <span className="relative flex items-center justify-center space-x-2">
+                  <span className="absolute left-4 my-auto text-lg font-medium text-primary">
+                    visits.id/
+                  </span>
+                  <Input
+                    placeholder="Tautan singkat"
+                    {...field}
+                    className="pl-20"
+                  />
                 </span>
               </FormControl>
               <FormMessage />
