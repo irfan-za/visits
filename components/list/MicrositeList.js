@@ -9,15 +9,13 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { socialMedia } from "@/utils/socialMedia";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import supabaseServer from "@/app/api/supabase-server";
 
 async function MicrositeList({ search, currentPage }) {
-  const supabaseServer = createServerComponentClient({ cookies });
   const {
     data: { user },
-  } = await supabaseServer.auth.getUser();
-  const { data: microsites, error } = await supabaseServer
+  } = await supabaseServer().auth.getUser();
+  const { data: microsites, error } = await supabaseServer()
     .from("microsites")
     .select()
     .eq("supabase_auth_id", user.id)

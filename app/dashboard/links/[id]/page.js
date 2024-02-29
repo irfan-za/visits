@@ -1,11 +1,9 @@
 import supabase from "@/app/api/supabase";
+import supabaseServer from "@/app/api/supabase-server";
 import { InputForm } from "@/components/form/InputForm";
 import { Toaster } from "@/components/ui/toaster";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
 
 async function page({ params }) {
-  const supabaseServer = createServerComponentClient({ cookies });
   const { data: url } = await supabase
     .from("urls")
     .select()
@@ -13,7 +11,7 @@ async function page({ params }) {
     .single();
   const {
     data: { session },
-  } = await supabaseServer.auth.getSession();
+  } = await supabaseServer().auth.getSession();
   return (
     <div className="mt-24 lg:mt-0">
       <InputForm
