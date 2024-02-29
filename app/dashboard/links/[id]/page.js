@@ -1,6 +1,6 @@
 import supabase from "@/app/api/supabase";
 import supabaseServer from "@/app/api/supabase-server";
-import { InputForm } from "@/components/form/Form";
+import { InputForm } from "@/components/form/InputForm";
 import { Toaster } from "@/components/ui/toaster";
 
 async function page({ params }) {
