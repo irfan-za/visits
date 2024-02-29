@@ -1,6 +1,8 @@
-import supabaseServer from "../api/supabase-server";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 export default async function Dashboard() {
+  const supabaseServer = createServerComponentClient({ cookies });
   const {
     data: { session },
   } = await supabaseServer.auth.getSession();

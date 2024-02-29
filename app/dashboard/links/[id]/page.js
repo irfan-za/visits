@@ -1,9 +1,11 @@
 import supabase from "@/app/api/supabase";
-import supabaseServer from "@/app/api/supabase-server";
 import { InputForm } from "@/components/form/InputForm";
 import { Toaster } from "@/components/ui/toaster";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 async function page({ params }) {
+  const supabaseServer = createServerComponentClient({ cookies });
   const { data: url } = await supabase
     .from("urls")
     .select()

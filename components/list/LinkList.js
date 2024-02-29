@@ -1,6 +1,5 @@
 import { BarChart4, Calendar, Edit, PackageOpen, Share2 } from "lucide-react";
 import { Button } from "../ui/button";
-import supabaseServer from "@/app/api/supabase-server";
 import { formatDate } from "@/utils/formatDate";
 import Link from "next/link";
 import {
@@ -10,8 +9,11 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { socialMedia } from "@/utils/socialMedia";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 async function LinkList({ search, currentPage }) {
+  const supabaseServer = createServerComponentClient({ cookies });
   const {
     data: { user },
   } = await supabaseServer.auth.getUser();
