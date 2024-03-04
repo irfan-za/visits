@@ -4,4 +4,4 @@ import { cookies } from "next/headers";
 export default function supabaseServer() {
   cookies().getAll(); // Keep cookies in the JS execution context for Next.js build
   return createServerComponentClient({ cookies });
-};
+}

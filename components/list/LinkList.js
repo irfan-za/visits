@@ -11,7 +11,6 @@ import {
 import { socialMedia } from "@/utils/socialMedia";
 import supabaseServer from "@/app/api/supabase-server";
 
-
 async function LinkList({ search, currentPage }) {
   const {
     data: { user },

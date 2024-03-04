@@ -1,6 +1,5 @@
 import supabaseServer from "../api/supabase-server";
 
-
 export default async function Dashboard() {
   const {
     data: { session },
