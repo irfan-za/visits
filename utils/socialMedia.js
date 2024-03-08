@@ -1,4 +1,11 @@
-import { Facebook, Instagram, MessageCircleMore, Twitter } from "lucide-react";
+import {
+  Facebook,
+  Instagram,
+  Link,
+  Mail,
+  MessageCircleMore,
+  Twitter,
+} from "lucide-react";
 
 export const socialMedia = [
   {
@@ -16,5 +23,20 @@ export const socialMedia = [
   {
     name: "Twitter",
     icon: <Twitter className="mr-2 h-4 w-4" />,
+  },
+];
+
+export const LinkTypes = [
+  {
+    name: "link",
+    icon: <Link className="mr-2 h-4 w-4" />,
+  },
+  {
+    name: "whatsapp",
+    icon: <MessageCircleMore className="mr-2 h-4 w-4" />,
+  },
+  {
+    name: "email",
+    icon: <Mail className="mr-2 h-4 w-4" />,
   },
 ];

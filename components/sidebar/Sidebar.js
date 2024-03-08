@@ -103,6 +103,7 @@ const Sidebar = () => {
                   <NavigationMenuItem key={i}>
                     <Link href={link.href} legacyBehavior passHref>
                       <NavigationMenuLink
+                        onClick={close}
                         className={`${navigationMenuTriggerStyle()} ${
                           activeNav === link.activeNav
                             ? "bg-primary text-primary-foreground"

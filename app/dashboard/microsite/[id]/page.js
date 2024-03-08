@@ -1,5 +1,5 @@
 import supabaseServer from "@/app/api/supabase-server";
-import { CollapsibleLink } from "@/components/CollabsibleLink";
+import { AccordionLink } from "@/components/AccordionLink";
 import { Toaster } from "@/components/ui/toaster";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -22,8 +22,8 @@ async function page({ params }) {
         <span>Microsite</span>
       </div>
       <section className="mt-2 flex space-x-3 p-4">
-        <div>
-          <CollapsibleLink
+        <div className="w-full sm:w-1/2">
+          <AccordionLink
             currentUserId={session.user.id}
             currentEditData={data}
           />
